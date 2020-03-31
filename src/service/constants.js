@@ -1,3 +1,5 @@
+'use strict';
+
 const TITLES = [
   `Продам книги Стивена Кинга.`,
   `Продам новую приставку Sony Playstation 5.`,
@@ -47,4 +49,4 @@ module.exports = {
   OFFER_TYPES,
   CATEGORIES,
   MAX_LIMIT
-}
+};

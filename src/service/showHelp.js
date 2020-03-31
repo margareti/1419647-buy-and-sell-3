@@ -11,7 +11,7 @@ const printInfo = () => console.log(`
     --help:               печатает этот текст
     --generate <count>    формирует файл mocks.json
     
-`)
+`);
 module.exports = {
   printInfo
 };
