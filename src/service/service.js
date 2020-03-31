@@ -1,9 +1,10 @@
 'use strict';
 const version = require(`./showVersion`);
-const samples = require(`./generateCount`);
+const samples = require(`./generateMocks`);
 const help = require(`./showHelp`);
+const errors = require(`./errorMessages`);
 
-const [...restOfArgs] = process.argv.slice(2);
+const restOfArgs = process.argv.slice(2);
 
 const customCommands = [{
   name: `version`,
@@ -15,7 +16,7 @@ const customCommands = [{
   description: `Shows the available commands`
 }, {
   name: `generate`,
-  action: (count) => samples.generateCount(count),
+  action: (count) => samples.generate(count),
   description: `Outputs the version`
 }];
 
@@ -28,5 +29,5 @@ parameters.forEach((item) => {
   if (customCommand) {
     return customCommand.action(splitCommand[1]);
   }
-  return console.log(`No such command: ${item}`);
+  return errors.commandUnknown(item);
 });
