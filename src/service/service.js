@@ -1,9 +1,10 @@
 'use strict';
 
-const version = require('./version');
-const help = require('./help');
-const dummyDataCenter = require('./data');
+const version = require(`./version`);
+const help = require(`./help`);
+const dummyDataCenter = require(`./data`);
 const cliArgs = process.argv.slice(2);
+const errors = require(`../errorMessages`);
 
 const customCommands = [{
   name: `version`,
@@ -15,7 +16,7 @@ const customCommands = [{
   description: `Shows the available commands`
 }, {
   name: `generate`,
-  action: (count) => dummyDataCenter.generateCount(count),
+  action: (count) => dummyDataCenter.generateMocks(count),
   description: `Outputs the version`
 }];
 
@@ -28,5 +29,5 @@ parameters.forEach((item) => {
   if (customCommand) {
     return customCommand.action(splitCommand[1]);
   }
-  return console.log(`No such command: ${item}`);
+  return errors.commandUnknown(item);
 });
