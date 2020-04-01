@@ -3,29 +3,25 @@
 const fs = require(`fs`);
 const utils = require(`./utils`);
 const constants = require(`./constants`);
-const errors = require(`./errorMessages`);
+const errors = require('./errorMessages');
 
 const getPicture = (num) => `item${num < 10 ? `0${num}` : num}.jpg`;
 
-const getNonRepeatingIndex = (sourceArray, historyArray) => {
-  let randomIndex;
-  do {
-    randomIndex = utils.getRandomArbitrary(0, sourceArray.length);
-  } while (historyArray.includes(randomIndex));
-  return randomIndex;
+const getNonRepeatingIndexesArray = (limit, maxArrayLength) => {
+  const indexes = [];
+  while (indexes.length <= limit) {
+    let randomIndex;
+    do {
+      randomIndex = utils.getRandomArbitrary(0, maxArrayLength);
+    } while (indexes.includes(randomIndex));
+    indexes.push(randomIndex);
+  }
+  return indexes;
 };
 
 const generateArray = (limit, arr) => {
-  const result = [];
-  const history = [];
-  for (let i = limit; i > 0; i--) {
-
-    const randomIndex = getNonRepeatingIndex(arr, history);
-    history.push(randomIndex);
-    const string = arr[randomIndex];
-    result.push(string);
-  }
-  return result;
+  const randomIndexes = getNonRepeatingIndexesArray(limit, arr.length);
+  return randomIndexes.map(i => arr[i]);
 };
 
 const generate = (count = 1) => {
@@ -53,7 +49,9 @@ const generate = (count = 1) => {
     offers.push(offer);
   }
 
-  fs.writeFileSync(`mock.json`, JSON.stringify(offers, null, 4), () => 1);
+  fs.writeFileSync(`mock.json`, JSON.stringify(offers, null, 4), function() {
+    return 1;
+  });
   return 0;
 };
 
