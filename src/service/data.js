@@ -6,21 +6,20 @@ const utils = require(`../utils`);
 const errors = require(`../errorMessages`);
 const constants = require(`../constants`);
 
-const getNonRepeatingIndexesArray = (limit, maxArrayLength) => {
+const getUniqueIndexesArray = (limit, maxArrayLength) => {
   const indexes = [];
   while (indexes.length <= limit) {
-    let randomIndex;
-    do {
-      randomIndex = utils.getRandomArbitrary(0, maxArrayLength);
-    } while (indexes.includes(randomIndex));
-    indexes.push(randomIndex);
+    const randomIndex = utils.getRandomArbitrary(0, maxArrayLength);
+    if (!indexes.includes(randomIndex)) {
+      indexes.push(randomIndex);
+    }
   }
   return indexes;
 };
 
 const generateArray = (limit, arr) => {
-  const randomIndexes = getNonRepeatingIndexesArray(limit, arr.length);
-  return randomIndexes.map(i => arr[i]);
+  const randomIndexes = getUniqueIndexesArray(limit, arr.length);
+  return randomIndexes.map((i) => arr[i]);
 };
 
 const generateMocks = (count = 1) => {
@@ -46,10 +45,12 @@ const generateMocks = (count = 1) => {
     offers.push(offer);
   }
 
-  fs.writeFileSync(`mock.json`, JSON.stringify(offers, null, 4), function() {
-    return 1;
-  });
-  return 0;
+  try {
+    fs.writeFileSync(`mock.json`, JSON.stringify(offers, null, 4));
+  } catch (err) {
+    return process.exit(1);
+  }
+  return process.exit(0);
 };
 
 module.exports = {
