@@ -1,10 +1,11 @@
 'use strict';
 
-const {DateTime} = require(`luxon`);
 const fs = require(`fs`);
-const utils = require(`../utils`);
-const errors = require(`../errorMessages`);
-const constants = require(`../constants`);
+const utils = require(`./utils`);
+const constants = require(`./constants`);
+const errors = require('./errorMessages');
+
+const getPicture = (num) => `item${num < 10 ? `0${num}` : num}.jpg`;
 
 const getUniqueIndexesArray = (limit, maxArrayLength) => {
   const indexes = [];
@@ -18,11 +19,10 @@ const getUniqueIndexesArray = (limit, maxArrayLength) => {
 };
 
 const generateArray = (limit, arr) => {
-  const randomIndexes = getUniqueIndexesArray(limit, arr.length);
-  return randomIndexes.map((i) => arr[i]);
+  return getUniqueIndexesArray(limit, arr.length).map(i => arr[i]);
 };
 
-const generateMocks = (count = 1) => {
+const generate = (count = 1) => {
   if (count > constants.MAX_LIMIT) {
     return errors.generateMocksLimitExceeded();
   }
@@ -30,16 +30,18 @@ const generateMocks = (count = 1) => {
   const offers = [];
   for (let i = count; i > 0; i--) {
     const title = utils.getRandomFromArray(constants.TITLES);
-    const announce = generateArray(utils.getRandomArbitrary(1, 5), constants.DESCRIPTIONS).join(` `);
-    const fullText = generateArray(utils.getRandomArbitrary(1, constants.DESCRIPTIONS.length), constants.DESCRIPTIONS).join(` `);
-    const createdDate = DateTime.local().minus({days: utils.getRandomArbitrary(0, 90)}).toFormat(`yyyy-MM-dd hh:mm:ss`);
-    const category = generateArray(utils.getRandomArbitrary(1, constants.CATEGORIES.length), constants.CATEGORIES);
+    const picture = getPicture(Math.floor(Math.random() * 16));
+    const description = generateArray(utils.getRandomArbitrary(1, 5), constants.DESCRIPTIONS).join(` `);
+    const type = utils.getRandomFromArray(constants.OFFER_TYPES);
+    const sum = utils.getRandomArbitrary(1000, 100000);
+    const category = generateArray(utils.getRandomArbitrary(1, 6), constants.CATEGORIES);
 
     const offer = {
       title,
-      announce,
-      fullText,
-      createdDate,
+      picture,
+      description,
+      type,
+      sum,
       category
     };
     offers.push(offer);
@@ -54,5 +56,6 @@ const generateMocks = (count = 1) => {
 };
 
 module.exports = {
-  generateMocks
+  generate
 };
+
