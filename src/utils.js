@@ -1,16 +1,18 @@
 'use strict';
 
-const getRandomFromArray = (arr) => {
-  const maxLength = arr.length;
-  const randomIndex = getRandomArbitrary(0, maxLength);
-  return arr[randomIndex];
-};
+const shuffle = (array) => {
+  for (let i = array.length - 1; i > 0; i--) {
+    let j = Math.floor(Math.random() * (i + 1)); // random index from 0 to i
+    [array[i], array[j]] = [array[j], array[i]];
+  }
+  return array;
+}
 
 const getRandomArbitrary = (min, max) => {
   return Math.floor(Math.random() * (max + 1 - min) + min);
 };
 
 module.exports = {
-  getRandomFromArray,
+  shuffle,
   getRandomArbitrary
 };
