@@ -19,7 +19,7 @@ const readContent = async (filePath) => {
     console.log(chalk.red(err));
     return [];
   }
-}
+};
 
 const generateOffers = (count, titles, categories, sentences) => {
   return Array(parseInt(count, 10)).fill({}).map(() => ({

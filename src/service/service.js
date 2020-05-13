@@ -24,11 +24,11 @@ const [
   ...params
 ] = process.argv.slice(2);
 
-const command = customCommands.find(command => command.name === commandName);
+const userCommand = customCommands.find((command) => command.name === commandName);
 
-if (command) {
-  command.action(...params);
+if (userCommand) {
+  userCommand.action(...params);
 } else {
   errors.commandUnknown(commandName);
-};
+}
 
