@@ -27,7 +27,7 @@ const readContent = async (filePath) => {
 const getPicture = (num) => `item${num < 10 ? `0${num}` : num}.jpg`;
 const generateOffers = (count, titles, categories, sentences) => {
   return Array(parseInt(count, 10)).fill({}).map(() => ({
-    category: utils.shuffle(categories).slice(0, utils.getRandomArbitrary(0, categories.length - 1)),
+    category: utils.shuffle(categories).slice(1, utils.getRandomArbitrary(0, categories.length - 1)),
     title: titles[utils.getRandomArbitrary(0, titles.length - 1)],
     description: utils.shuffle(sentences).slice(0, 5).join(` `),
     type: TYPES[utils.getRandomArbitrary(0, TYPES.length - 1)],

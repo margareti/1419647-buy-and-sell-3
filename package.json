@@ -23,7 +23,6 @@
     "eslint-config-htmlacademy": "0.5.2"
   },
   "dependencies": {
-    "chalk": "4.0.0",
-    "luxon": "1.24.1"
+    "chalk": "4.0.0"
   }
 }
