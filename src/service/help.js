@@ -5,7 +5,7 @@ module.exports = {
   printInfo: () => console.log(chalk.grey(`
   Программа учит Маргариту пользоваться CLI интерфейсом Node.js.
       Гайд:
-      server <command>
+      service <command>
       
       Команды:
       --version:            выводит номер версии
