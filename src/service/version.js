@@ -1,5 +1,5 @@
 'use strict';
-const chalk = require('chalk');
+const chalk = require(`chalk`);
 
 const {version} = require(`../../package.json`);
 
