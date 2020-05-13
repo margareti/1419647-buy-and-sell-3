@@ -1,9 +1,8 @@
 'use strict';
 
 const fs = require(`fs`).promises;
-const path = require('path');
+const path = require(`path`);
 
-const {DateTime} = require(`luxon`);
 const chalk = require(`chalk`);
 
 const utils = require(`../utils`);
@@ -13,6 +12,7 @@ const constants = require(`../constants`);
 const FILE_SENTENCES_PATH = `./data/sentences.txt`;
 const FILE_TITLES_PATH = `./data/titles.txt`;
 const FILE_CATEGORIES_PATH = `./data/categories.txt`;
+const TYPES = ['offer', 'sale'];
 
 const readContent = async (filePath) => {
   try {
@@ -24,13 +24,15 @@ const readContent = async (filePath) => {
   }
 };
 
+const getPicture = (num) => `item${num < 10 ? `0${num}` : num}.jpg`;
 const generateOffers = (count, titles, categories, sentences) => {
   return Array(parseInt(count, 10)).fill({}).map(() => ({
-    category: [categories[utils.getRandomArbitrary(1, categories.length - 1)]],
-    title: titles[utils.getRandomArbitrary(1, titles.length - 1)],
-    announce: utils.shuffle(sentences).slice(1, 5).join(` `),
-    fullText: utils.shuffle(sentences).slice(1, 5).join(` `),
-    createdDate: DateTime.local().minus({days: utils.getRandomArbitrary(0, 90)}).toFormat(`yyyy-MM-dd hh:mm:ss`),
+    category: utils.shuffle(categories).slice(0, utils.getRandomArbitrary(0, categories.length - 1)),
+    title: titles[utils.getRandomArbitrary(0, titles.length - 1)],
+    description: utils.shuffle(sentences).slice(0, 5).join(` `),
+    type: TYPES[utils.getRandomArbitrary(0, TYPES.length - 1)],
+    picture: getPicture(Math.floor(Math.random() * 16)),
+    sum: utils.getRandomArbitrary(1000, 100000),
   }));
 };
 
@@ -48,6 +50,7 @@ const run = async (count = 1) => {
   } catch (err) {
     return process.exit(1);
   }
+  return true;
 };
 
 module.exports = {
