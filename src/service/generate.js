@@ -1,9 +1,10 @@
 'use strict';
 
-const {DateTime} = require(`luxon`);
 const fs = require(`fs`).promises;
-const utils = require(`../utils`);
+const {DateTime} = require(`luxon`);
 const chalk = require(`chalk`);
+
+const utils = require(`../utils`);
 const errors = require(`../errorMessages`);
 const constants = require(`../constants`);
 
