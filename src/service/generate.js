@@ -1,6 +1,8 @@
 'use strict';
 
 const fs = require(`fs`).promises;
+const path = require('path');
+
 const {DateTime} = require(`luxon`);
 const chalk = require(`chalk`);
 
@@ -8,13 +10,13 @@ const utils = require(`../utils`);
 const errors = require(`../errorMessages`);
 const constants = require(`../constants`);
 
-const FILE_SENTENCES_PATH = `/data/sentences.txt`;
-const FILE_TITLES_PATH = `/data/titles.txt`;
-const FILE_CATEGORIES_PATH = `/data/categories.txt`;
+const FILE_SENTENCES_PATH = `./data/sentences.txt`;
+const FILE_TITLES_PATH = `./data/titles.txt`;
+const FILE_CATEGORIES_PATH = `./data/categories.txt`;
 
 const readContent = async (filePath) => {
   try {
-    const content = await fs.readFile(`${__dirname}${filePath}`, `utf-8`);
+    const content = await fs.readFile(path.resolve(`./src/service`, filePath), `utf-8`);
     return content.split(`\n`);
   } catch (err) {
     console.log(chalk.red(err));
@@ -46,7 +48,6 @@ const run = async (count = 1) => {
   } catch (err) {
     return process.exit(1);
   }
-  return process.exit(0);
 };
 
 module.exports = {
