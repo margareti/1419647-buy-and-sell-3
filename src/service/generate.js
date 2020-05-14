@@ -16,7 +16,7 @@ const TYPES = [`offer`, `sale`];
 
 const readContent = async (filePath) => {
   try {
-    const content = await fs.readFile(path.resolve(`./src/service`, filePath), `utf-8`);
+    const content = await fs.readFile(path.resolve(__dirname, filePath), `utf-8`);
     return content.split(`\n`);
   } catch (err) {
     console.log(chalk.red(err));
@@ -46,11 +46,10 @@ const run = async (count = 1) => {
   const categories = await readContent(FILE_CATEGORIES_PATH);
   const offers = generateOffers(count, titles, categories, sentences);
   try {
-    await fs.writeFile(`mock.json`, JSON.stringify(offers, null, 4));
+    return await fs.writeFile(`mock.json`, JSON.stringify(offers, null, 4));
   } catch (err) {
     return process.exit(1);
   }
-  return true;
 };
 
 module.exports = {
