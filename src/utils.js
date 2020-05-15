@@ -6,7 +6,7 @@ const shuffle = (array) => {
     [array[i], array[j]] = [array[j], array[i]];
   }
   return array;
-}
+};
 
 const getRandomArbitrary = (min, max) => {
   return Math.floor(Math.random() * (max + 1 - min) + min);
