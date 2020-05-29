@@ -4,6 +4,7 @@ const version = require(`./version`);
 const help = require(`./help`);
 const generate = require(`./generate`);
 const errors = require(`../errorMessages`);
+const server = require(`./server`);
 
 const customCommands = [{
   name: `--version`,
@@ -17,6 +18,10 @@ const customCommands = [{
   name: `--generate`,
   action: (count) => generate.run(count),
   description: `Outputs the version`
+}, {
+  name: `--server`,
+  action: server.start,
+  description: `Starts the server at the specified port`
 }];
 
 const [

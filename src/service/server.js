@@ -42,6 +42,13 @@ const onClientConnect = async (req, res) => {
       res.end(titles);
       break;
     }
+
+    default: {
+      res.writeHead(NOT_FOUND_CODE, {
+        'Content-Type': `text/plain; charset=UTF-8`,
+      });
+      res.end(`Oops, not found. It's all Peter's fault`);
+    }
   }
 };
 
