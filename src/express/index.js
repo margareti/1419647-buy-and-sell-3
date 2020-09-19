@@ -1,15 +1,15 @@
 'use strict';
 
 const express = require(`express`);
-const DEFAULT_PORT = 3000;
-
-const app = express();
 const offersRoute = require(`../routes/offers`);
 const searchRoute = require(`../routes/search`);
 const myRoute = require(`../routes/my`);
 const loginRoute = require(`../routes/login`);
 const registerRoute = require(`../routes/register`);
 const homeRoute = require(`../routes/home`);
+
+const DEFAULT_PORT = 8080;
+const app = express();
 
 app.use(`/offers`, offersRoute);
 app.use(`/search`, searchRoute);
