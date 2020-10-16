@@ -8,6 +8,7 @@ const app = express();
 
 app.set(`views`, path.join(__dirname, `./templates`));
 app.set(`view engine`, `pug`);
+app.use(express.static(path.join(__dirname, './public')));
 
 app.get(`/offers`, (req, res) => {
   res.render(`main--empty`);
